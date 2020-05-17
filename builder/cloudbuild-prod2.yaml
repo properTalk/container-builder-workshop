@@ -22,7 +22,7 @@ steps:
     args: 
       - '-c'
       - |
-          docker build -t gcr.io/$PROJECT_ID/gceme:$TAG_NAME .
+          docker build -t gcr.io/$PROJECT_ID/saphoon:$TAG_NAME .
 
 
 
@@ -36,7 +36,7 @@ steps:
     args: 
       - '-c'
       - |
-          docker push gcr.io/$PROJECT_ID/gceme:$TAG_NAME
+          docker push gcr.io/$PROJECT_ID/saphoon:$TAG_NAME
 
 
 
@@ -61,9 +61,9 @@ steps:
 
 
 
-          sed -i 's|gcr.io/cloud-solutions-images/gceme:.*|gcr.io/$PROJECT_ID/gceme:$TAG_NAME|' ./kubernetes/deployments/prod/*.yaml
+          sed -i 's|gcr.io/cloud-solutions-images/saphoon:.*|gcr.io/$PROJECT_ID/saphoon:$TAG_NAME|' ./kubernetes/deployments/prod/*.yaml
           
-          kubectl get ns production || kubectl create ns production
-          kubectl apply --namespace production --recursive -f kubernetes/deployments/prod
-          kubectl apply --namespace production --recursive -f kubernetes/services
+          kubectl get ns test-ds || kubectl create ns test-ds
+          kubectl apply --namespace test-ds --recursive -f kubernetes/deployments/prod
+          kubectl apply --namespace test-ds --recursive -f kubernetes/services
 
